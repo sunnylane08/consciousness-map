@@ -836,13 +836,8 @@ function selectOption(btn, state) {
   setTimeout(() => {
     currentQuestion++;
     if (currentQuestion < activeQuestions.length) {
-      // Show transition between some questions
-      if (transitions[currentQuestion - 1]) {
-        showTransition(transitions[currentQuestion - 1]);
-      } else {
-        showQuestion();
-        isTransitioning = false;
-      }
+      showQuestion();
+      isTransitioning = false;
     } else {
       updateProgress();
       showResult();
