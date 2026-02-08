@@ -927,31 +927,9 @@ function showResult() {
 function handleEmail(e) {
   e.preventDefault();
   const email = document.getElementById('emailInput').value;
-  const submitBtn = document.querySelector('.email-submit');
-  submitBtn.textContent = '...';
-  submitBtn.disabled = true;
-
-  fetch('https://sunnymlane.substack.com/api/v1/free', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: email,
-      first_url: window.location.href,
-      first_referrer: document.referrer,
-      current_url: window.location.href,
-      current_referrer: document.referrer
-    })
-  })
-  .then(r => {
-    document.getElementById('emailForm').style.display = 'none';
-    document.getElementById('emailSuccess').style.display = 'block';
-  })
-  .catch(err => {
-    // Fallback: open Substack subscribe page with email pre-filled
-    window.open('https://sunnymlane.substack.com/subscribe?email=' + encodeURIComponent(email), '_blank');
-    document.getElementById('emailForm').style.display = 'none';
-    document.getElementById('emailSuccess').style.display = 'block';
-  });
+  window.open('https://sunnymlane.substack.com/subscribe?email=' + encodeURIComponent(email), '_blank');
+  document.getElementById('emailForm').style.display = 'none';
+  document.getElementById('emailSuccess').style.display = 'block';
 }
 </script>
 
