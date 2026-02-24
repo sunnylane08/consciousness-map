@@ -569,7 +569,7 @@
   <div class="screen intro active visible" id="screenIntro">
     <div class="intro-eyebrow">A Reflection</div>
     <h1>What state are you<br>operating from right now?</h1>
-    <p>Complete four statements honestly. There are no right answers — only what's true for you right now. Your state will emerge as you go.</p>
+    <p>Four questions. Answer what's true right now — not what you want to be true. Your state will surface as you go.</p>
     <button class="btn-begin" onclick="startJourney()"><span>Begin</span></button>
   </div>
 
@@ -623,73 +623,43 @@
 <script>
 const questions = [
   {
-    stem: "Right now, how does your attention work?",
+    stem: "Right now, how does your attention move?",
     options: [
-      { text: "It\u2019s pulled constantly. Something happens and I\u2019m immediately in it. No gap between what happens and my reaction.", state: "foundation" },
-      { text: "Everything feels quiet and spacious. There are no boundaries to the feeling of vastness.", state: "source" },
-      { text: "I can notice my thoughts and what\u2019s happening outside me at the same time, but it takes effort and I keep slipping back into reactivity.", state: "witness" },
-      { text: "I\u2019m aware of both my inner state and the outer world easily. It doesn\u2019t take work.", state: "heart" },
-      { text: "My awareness is steady regardless of what\u2019s happening. I\u2019m not managing it.", state: "integrated" }
+      { text: "It jumps to problems. Something happens and I\u2019m already in it, trying to figure it out or make it stop.", state: "foundation" },
+      { text: "There\u2019s no \u201Cit\u201D pulling attention anywhere. The sense of someone tracking things has gone quiet.", state: "source" },
+      { text: "I notice where it goes. I can watch it get pulled without fully going with it, though I still slip.", state: "witness" },
+      { text: "It moves naturally between inside and outside. Nothing feels urgent to manage.", state: "heart" },
+      { text: "Steady, regardless of what\u2019s happening. Not something I\u2019m maintaining.", state: "integrated" }
     ]
   },
   {
-    stem: "When you notice your body right now, what\u2019s true?",
+    stem: "Is there a story running right now?",
     options: [
-      { text: "Tense, braced, contracted. I\u2019m holding something even if I can\u2019t name what.", state: "foundation" },
-      { text: "Settled, spacious, quiet. Not trying to do anything.", state: "source" },
-      { text: "I can feel tension and observe it at the same time. I\u2019m watching my body respond.", state: "witness" },
-      { text: "Relaxed but alert. Not performing, not bracing. Just here.", state: "heart" },
-      { text: "However it is right now is fine. I\u2019m not trying to change it.", state: "integrated" }
+      { text: "Yes, and it\u2019s active. I\u2019m replaying something, solving something, or bracing for something.", state: "foundation" },
+      { text: "No. There\u2019s no narrator. Nothing to narrate.", state: "source" },
+      { text: "There\u2019s a story, but I can see it as a story. It\u2019s running but I\u2019m not inside it.", state: "witness" },
+      { text: "Thoughts come and go. Nothing is sticking or looping.", state: "heart" },
+      { text: "Stories arise. I notice them. They don\u2019t organize me.", state: "integrated" }
     ]
   },
   {
-    stem: "Right now, the outside world feels\u2026",
+    stem: "When you think about the people close to you right now\u2026",
     options: [
-      { text: "Loud, urgent, convincing. Like the only thing that\u2019s real.", state: "foundation" },
-      { text: "Distant or irrelevant. My attention moved somewhere I can\u2019t fully explain.", state: "source" },
-      { text: "Real, but I can also see how I\u2019m relating to it. Both the world and my response exist at once.", state: "witness" },
-      { text: "Cooperative. Things keep aligning without me forcing them.", state: "heart" },
-      { text: "Present, but it\u2019s not defining my internal state.", state: "integrated" }
+      { text: "I feel responsible for them, worried about them, or frustrated by them.", state: "foundation" },
+      { text: "They feel far away. I\u2019m somewhere that doesn\u2019t include much relational texture.", state: "source" },
+      { text: "I can see my patterns with them without being run by the patterns.", state: "witness" },
+      { text: "I feel warmth without needing anything from them right now. I could be close without scanning for exits.", state: "heart" },
+      { text: "They\u2019re present in my awareness but not defining my internal state.", state: "integrated" }
     ]
   },
   {
-    stem: "When something doesn\u2019t go the way you wanted, you\u2026",
+    stem: "When something doesn\u2019t go the way you wanted, what happens inside?",
     options: [
-      { text: "Become the problem immediately. It consumes me. I loop on it until I have a plan or an answer.", state: "foundation" },
-      { text: "Don\u2019t notice or don\u2019t care. I\u2019m somewhere quieter than that.", state: "source" },
-      { text: "Notice I\u2019m reacting and can observe the reaction, but the reaction still runs most of the show.", state: "witness" },
-      { text: "Feel it fully without collapsing. Help arrives without me chasing it.", state: "heart" },
-      { text: "Hold the disappointment without it destabilizing anything else.", state: "integrated" }
-    ]
-  },
-  {
-    stem: "The gap between what happens and how you respond is\u2026",
-    options: [
-      { text: "Nonexistent. I\u2019m reacting before I know I\u2019m reacting.", state: "foundation" },
-      { text: "Irrelevant. I\u2019m not in responses right now.", state: "source" },
-      { text: "There sometimes. I catch it occasionally, but I lose it fast.", state: "witness" },
-      { text: "Present and easy. I can feel things and choose how I respond.", state: "heart" },
-      { text: "Always there, even when I\u2019m reactive. I see the whole cycle.", state: "integrated" }
-    ]
-  },
-  {
-    stem: "Right now, effort feels\u2026",
-    options: [
-      { text: "Necessary for everything. I\u2019m grinding just to stay afloat.", state: "foundation" },
-      { text: "Absent. I\u2019m not doing anything.", state: "source" },
-      { text: "Required to maintain awareness. If I stop paying attention, I slip back into autopilot.", state: "witness" },
-      { text: "Optional. Things are moving without me having to push them.", state: "heart" },
-      { text: "Irrelevant. I can engage or rest and neither one defines me.", state: "integrated" }
-    ]
-  },
-  {
-    stem: "Things you\u2019ve wanted are\u2026",
-    options: [
-      { text: "Still out of reach. I\u2019m working hard and not seeing results.", state: "foundation" },
-      { text: "Not on my radar. I\u2019m not tracking wants right now.", state: "source" },
-      { text: "Starting to show up, and it\u2019s surprising. I didn\u2019t force them.", state: "witness" },
-      { text: "Arriving consistently. Life feels like it\u2019s cooperating.", state: "heart" },
-      { text: "Here or not here, and either way I\u2019m okay.", state: "integrated" }
+      { text: "I become the problem. It loops until I have a plan, an answer, or someone to blame \u2014 including myself.", state: "foundation" },
+      { text: "I\u2019m not tracking outcomes closely enough to be bothered.", state: "source" },
+      { text: "I notice the reaction running. I don\u2019t fully stop it, but I\u2019m not identical to it.", state: "witness" },
+      { text: "I feel the disappointment without it collapsing into anything larger.", state: "heart" },
+      { text: "The feeling is real. Nothing reorganizes around it.", state: "integrated" }
     ]
   }
 ];
