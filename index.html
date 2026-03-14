@@ -502,19 +502,12 @@
   }
 
   /* Ambient state shifts */
-  body.state-foundation { --ambient-hue: 30; }
-  body.state-source { --ambient-hue: 240; }
-  body.state-witness { --ambient-hue: 180; }
-  body.state-heart { --ambient-hue: 330; }
-  body.state-integrated { --ambient-hue: 45; }
-
   body.state-foundation .ambient-orb-1 { opacity: 0.04; background: radial-gradient(circle, #a08060, transparent 70%); }
   body.state-source .ambient-orb-1 { opacity: 0.03; background: radial-gradient(circle, #6070a0, transparent 70%); }
   body.state-witness .ambient-orb-1 { opacity: 0.05; background: radial-gradient(circle, #60a0a0, transparent 70%); }
   body.state-heart .ambient-orb-1 { opacity: 0.05; background: radial-gradient(circle, #a06080, transparent 70%); }
   body.state-integrated .ambient-orb-1 { opacity: 0.06; background: radial-gradient(circle, #c9a87c, transparent 70%); }
 
-  /* Breathing animation for ambient */
   @keyframes breathe {
     0%, 100% { transform: scale(1); opacity: 0.03; }
     50% { transform: scale(1.1); opacity: 0.05; }
@@ -522,7 +515,6 @@
 
   .ambient-orb { animation: breathe 8s ease-in-out infinite; }
 
-  /* Responsive */
   @media (max-width: 600px) {
     .container { padding: 0 20px; }
     .email-form { flex-direction: column; }
@@ -542,7 +534,6 @@
 
   .home-link:hover { color: var(--accent); }
 
-  /* Subtle noise texture */
   body::after {
     content: '';
     position: fixed;
@@ -623,43 +614,43 @@
 <script>
 const questions = [
   {
-    stem: "Right now, how does your attention move?",
+    stem: "Right now, my mind is\u2026",
     options: [
-      { text: "It jumps to problems. Something happens and I\u2019m already in it, trying to figure it out or make it stop.", state: "foundation" },
-      { text: "There\u2019s no \u201Cit\u201D pulling attention anywhere. The sense of someone tracking things has gone quiet.", state: "source" },
-      { text: "I notice where it goes. I can watch it get pulled without fully going with it, though I still slip.", state: "witness" },
-      { text: "It moves naturally between inside and outside. Nothing feels urgent to manage.", state: "heart" },
-      { text: "Steady, regardless of what\u2019s happening. Not something I\u2019m maintaining.", state: "integrated" }
+      { text: "\u2026already somewhere else \u2014 on a problem, a worry, something I need to figure out or fix.", state: "foundation" },
+      { text: "\u2026quiet. There\u2019s no particular thing it\u2019s on. Just stillness.", state: "source" },
+      { text: "\u2026active, but I can see it being active. Like watching traffic from a window.", state: "witness" },
+      { text: "\u2026easy. Thoughts come and go without anything catching.", state: "heart" },
+      { text: "\u2026whatever it is. I\u2019m not trying to change it or manage it.", state: "integrated" }
     ]
   },
   {
-    stem: "Is there a story running right now?",
+    stem: "When I think about everything on my plate right now, I feel\u2026",
     options: [
-      { text: "Yes, and it\u2019s active. I\u2019m replaying something, solving something, or bracing for something.", state: "foundation" },
-      { text: "No. There\u2019s no narrator. Nothing to narrate.", state: "source" },
-      { text: "There\u2019s a story, but I can see it as a story. It\u2019s running but I\u2019m not inside it.", state: "witness" },
-      { text: "Thoughts come and go. Nothing is sticking or looping.", state: "heart" },
-      { text: "Stories arise. I notice them. They don\u2019t organize me.", state: "integrated" }
+      { text: "\u2026the weight of it. There\u2019s a lot, and some part of me is already bracing.", state: "foundation" },
+      { text: "\u2026nothing much. I\u2019m not really in contact with my plate right now.", state: "source" },
+      { text: "\u2026aware of the weight without being buried in it. I can see it all without becoming it.", state: "witness" },
+      { text: "\u2026okay. Things are moving and I trust they\u2019ll keep moving.", state: "heart" },
+      { text: "\u2026whatever comes up. Full or empty, it doesn\u2019t change something underneath.", state: "integrated" }
     ]
   },
   {
-    stem: "When you think about the people close to you right now\u2026",
+    stem: "The people closest to me right now feel\u2026",
     options: [
-      { text: "I feel responsible for them, worried about them, or frustrated by them.", state: "foundation" },
-      { text: "They feel far away. I\u2019m somewhere that doesn\u2019t include much relational texture.", state: "source" },
-      { text: "I can see my patterns with them without being run by the patterns.", state: "witness" },
-      { text: "I feel warmth without needing anything from them right now. I could be close without scanning for exits.", state: "heart" },
-      { text: "They\u2019re present in my awareness but not defining my internal state.", state: "integrated" }
+      { text: "\u2026like a lot. I\u2019m worried about them, responsible for them, or frustrated by them.", state: "foundation" },
+      { text: "\u2026far away. I\u2019m somewhere that doesn\u2019t have much room for anyone right now.", state: "source" },
+      { text: "\u2026present. I can see my patterns with them without being completely run by them.", state: "witness" },
+      { text: "\u2026easy to be with. I\u2019m not scanning for anything or bracing for anything.", state: "heart" },
+      { text: "\u2026part of life. They\u2019re there, but they\u2019re not determining how I feel inside.", state: "integrated" }
     ]
   },
   {
-    stem: "When something doesn\u2019t go the way you wanted, what happens inside?",
+    stem: "When something doesn\u2019t go the way I wanted, I\u2026",
     options: [
-      { text: "I become the problem. It loops until I have a plan, an answer, or someone to blame \u2014 including myself.", state: "foundation" },
-      { text: "I\u2019m not tracking outcomes closely enough to be bothered.", state: "source" },
-      { text: "I notice the reaction running. I don\u2019t fully stop it, but I\u2019m not identical to it.", state: "witness" },
-      { text: "I feel the disappointment without it collapsing into anything larger.", state: "heart" },
-      { text: "The feeling is real. Nothing reorganizes around it.", state: "integrated" }
+      { text: "\u2026become the problem. It loops. I need a plan, an answer, or someone to blame \u2014 including myself.", state: "foundation" },
+      { text: "\u2026don\u2019t have strong feelings about it. I\u2019m not tracking outcomes that closely right now.", state: "source" },
+      { text: "\u2026notice the reaction without being identical to it. I can see myself responding without fully stopping it.", state: "witness" },
+      { text: "\u2026feel the disappointment without it turning into something larger.", state: "heart" },
+      { text: "\u2026feel it fully. And then it passes. Nothing reorganizes around it.", state: "integrated" }
     ]
   }
 ];
@@ -673,7 +664,7 @@ const states = {
   },
   source: {
     name: "Source Consciousness",
-    recognition: "The quiet underneath everything. Like the moment just before you fall asleep, when thinking stops but you\u2019re still aware. You\u2019re not thinking about being present \u2014 you just are. Still, whole, enveloped. Not numb or dissociated. Just here.",
+    recognition: "The quiet underneath everything \u2014 like the moment just before you fall asleep, when thinking stops but you\u2019re still aware. You\u2019re not thinking about being present \u2014 you just are. Still, whole, enveloped. Not numb or dissociated. Just here.",
     experience: "This isn\u2019t an active, outward state. You\u2019re drawn to deep rest \u2014 meditation, prayer, stillness. The external effects show up after repeated contact with Source, as it begins to saturate your physiology and affect how you move through the other states.",
     order: 1
   },
@@ -709,8 +700,7 @@ let answers = [];
 let isTransitioning = false;
 
 function pickQuestions() {
-  const shuffled = shuffleArray([...questions]);
-  activeQuestions = shuffled.slice(0, 4);
+  activeQuestions = [...questions];
 }
 
 function showScreen(id) {
@@ -763,14 +753,12 @@ function showQuestion() {
     const btn = document.createElement('button');
     btn.className = 'option';
     btn.textContent = opt.text;
-    btn.style.animationDelay = `${i * 0.06}s`;
     btn.onclick = () => selectOption(btn, opt.state);
     container.appendChild(btn);
   });
 
   showScreen('screenQuestion');
 
-  // Stagger in options
   const opts = container.querySelectorAll('.option');
   opts.forEach((o, i) => {
     o.style.opacity = '0';
@@ -789,11 +777,9 @@ function selectOption(btn, state) {
 
   answers.push(state);
 
-  // Highlight selected
   document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   btn.classList.add('selected');
 
-  // Fade out other options
   setTimeout(() => {
     document.querySelectorAll('.option').forEach(o => {
       if (!o.classList.contains('selected')) {
@@ -802,12 +788,16 @@ function selectOption(btn, state) {
     });
   }, 300);
 
-  // Move to next
   setTimeout(() => {
     currentQuestion++;
     if (currentQuestion < activeQuestions.length) {
-      showQuestion();
-      isTransitioning = false;
+      // Show transition text between questions 1-2 and 2-3
+      if (currentQuestion < transitions.length) {
+        showTransition(transitions[currentQuestion - 1]);
+      } else {
+        showQuestion();
+        isTransitioning = false;
+      }
     } else {
       updateProgress();
       showResult();
@@ -845,14 +835,12 @@ function showResult() {
   const stateKey = calculateState();
   const state = states[stateKey];
 
-  // Set body class for ambient shift
   document.body.className = `state-${stateKey}`;
 
   document.getElementById('resultName').textContent = state.name;
   document.getElementById('recognitionText').textContent = state.recognition;
   document.getElementById('experienceText').textContent = state.experience;
 
-  // Build map
   const mapContainer = document.getElementById('consciousnessMap');
   mapContainer.innerHTML = '';
   const levels = ['integrated', 'heart', 'witness', 'source', 'foundation'];
@@ -878,7 +866,6 @@ function showResult() {
 
   showScreen('screenResult');
 
-  // Stagger reveal sections
   setTimeout(() => {
     document.getElementById('recognitionSection').classList.add('reveal');
   }, 1200);
