@@ -8,594 +8,111 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg-deep: #0a0a0c;
-    --bg-surface: #111114;
-    --bg-card: #18181c;
-    --bg-hover: #1f1f24;
-    --text-primary: #e8e6e3;
-    --text-secondary: #9a9590;
-    --text-muted: #5a5550;
-    --accent: #c9a87c;
-    --accent-soft: rgba(201, 168, 124, 0.12);
-    --accent-glow: rgba(201, 168, 124, 0.06);
-    --border: rgba(255, 255, 255, 0.06);
-    --radius: 12px;
-    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
+  :root { --bg-deep: #0a0a0c; --bg-surface: #111114; --bg-card: #18181c; --bg-hover: #1f1f24; --text-primary: #e8e6e3; --text-secondary: #9a9590; --text-muted: #5a5550; --accent: #c9a87c; --accent-soft: rgba(201, 168, 124, 0.12); --accent-glow: rgba(201, 168, 124, 0.06); --border: rgba(255, 255, 255, 0.06); --radius: 12px; --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
   html { font-size: 16px; scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--bg-deep);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Ambient background */
-  .ambient {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .ambient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.03;
-    transition: all 2s ease;
-  }
-
-  .ambient-orb-1 {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, #c9a87c, transparent 70%);
-    top: -200px; right: -100px;
-  }
-
-  .ambient-orb-2 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, #7c8ec9, transparent 70%);
-    bottom: -150px; left: -100px;
-  }
-
-  /* Progress indicator */
-  .progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), rgba(201,168,124,0.3));
-    z-index: 100;
-    transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  /* Container */
-  .container {
-    position: relative;
-    z-index: 2;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 24px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  /* Screens */
-  .screen {
-    display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .screen.active {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .screen.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Intro screen */
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .ambient-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.03; transition: all 2s ease; }
+  .ambient-orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, #c9a87c, transparent 70%); top: -200px; right: -100px; }
+  .ambient-orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #7c8ec9, transparent 70%); bottom: -150px; left: -100px; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--accent), rgba(201,168,124,0.3)); z-index: 100; transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .container { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; padding: 0 24px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  .screen { display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .screen.active { display: flex; flex-direction: column; }
+  .screen.visible { opacity: 1; transform: translateY(0); }
   .intro { align-items: center; text-align: center; padding: 60px 0; }
-
-  .intro-eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 32px;
-    font-weight: 500;
-  }
-
-  .intro h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.4rem, 5vw, 3.4rem);
-    font-weight: 400;
-    line-height: 1.15;
-    margin-bottom: 24px;
-    letter-spacing: -0.01em;
-  }
-
-  .intro p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    max-width: 480px;
-    margin-bottom: 48px;
-    font-weight: 300;
-  }
-
-  .btn-begin {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 16px 48px;
-    border-radius: 60px;
-    cursor: pointer;
-    transition: all var(--transition);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-begin::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    opacity: 0;
-    transition: opacity var(--transition);
-    border-radius: inherit;
-  }
-
-  .btn-begin:hover { color: var(--bg-deep); }
-  .btn-begin:hover::before { opacity: 1; }
-  .btn-begin span { position: relative; z-index: 1; }
-
-  /* Question screen */
+  .intro-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; font-weight: 500; }
+  .intro h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 400; line-height: 1.15; margin-bottom: 24px; letter-spacing: -0.01em; }
+  .intro p { font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); max-width: 480px; margin-bottom: 48px; font-weight: 300; }
+  .btn-begin { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 48px; border-radius: 60px; cursor: pointer; transition: all var(--transition); position: relative; overflow: hidden; }
+  .btn-begin::before { content: ''; position: absolute; inset: 0; background: var(--accent); opacity: 0; transition: opacity var(--transition); border-radius: inherit; }
+  .btn-begin:hover { color: var(--bg-deep); } .btn-begin:hover::before { opacity: 1; } .btn-begin span { position: relative; z-index: 1; }
   .question-screen { padding: 80px 0; min-height: 100vh; justify-content: center; }
-
-  .question-counter {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 40px;
-    font-weight: 500;
-  }
-
-  .question-stem {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-    font-weight: 400;
-    line-height: 1.35;
-    margin-bottom: 40px;
-    color: var(--text-primary);
-  }
-
-  .question-stem em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
+  .question-counter { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 40px; font-weight: 500; }
+  .question-stem { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 400; line-height: 1.35; margin-bottom: 40px; color: var(--text-primary); }
   .options { display: flex; flex-direction: column; gap: 12px; }
-
-  .option {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 300;
-    line-height: 1.55;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all var(--transition);
-    text-align: left;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .option::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: var(--accent);
-    transition: width 0.3s ease;
-  }
-
-  .option:hover {
-    background: var(--bg-hover);
-    border-color: rgba(201, 168, 124, 0.2);
-    color: var(--text-primary);
-    transform: translateX(4px);
-  }
-
-  .option.selected {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--text-primary);
-  }
-
+  .option { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 300; line-height: 1.55; color: var(--text-secondary); cursor: pointer; transition: all var(--transition); text-align: left; position: relative; overflow: hidden; }
+  .option::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent); transition: width 0.3s ease; }
+  .option:hover { background: var(--bg-hover); border-color: rgba(201, 168, 124, 0.2); color: var(--text-primary); transform: translateX(4px); }
+  .option.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--text-primary); }
   .option.selected::before { width: 3px; }
-
-  .option.fade-out {
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.3s ease;
-  }
-
-  /* Transition screen */
-  .transition-screen {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 0;
-    min-height: 100vh;
-  }
-
-  .transition-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 500px;
-  }
-
-  /* Result screen */
-  .result-screen {
-    padding: 80px 0 120px;
-    align-items: center;
-  }
-
-  .result-emerge {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-
-  .result-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-
-  .result-state-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    font-weight: 400;
-    color: var(--accent);
-    margin-bottom: 8px;
-    opacity: 0;
-    transform: translateY(12px);
-    animation: revealName 1s ease 0.5s forwards;
-  }
-
-  @keyframes revealName {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .result-divider {
-    width: 60px;
-    height: 1px;
-    background: var(--accent);
-    margin: 32px auto;
-    opacity: 0;
-    animation: revealLine 0.8s ease 0.8s forwards;
-  }
-
-  @keyframes revealLine {
-    to { opacity: 0.4; }
-  }
-
-  /* Sections for recognition & experience */
-  .result-section {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  .result-section.reveal {
-    animation: revealSection 0.8s ease forwards;
-  }
-
-  @keyframes revealSection {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .result-section-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-    font-weight: 500;
-  }
-
-  .result-section-text {
-    font-size: 1rem;
-    line-height: 1.75;
-    color: var(--text-secondary);
-    font-weight: 300;
-  }
-
-  /* Map visualization */
-  .consciousness-map {
-    width: 100%;
-    max-width: 500px;
-    margin: 32px auto 48px;
-    opacity: 0;
-    animation: revealMap 1s ease 1.8s forwards;
-  }
-
-  @keyframes revealMap {
-    to { opacity: 1; }
-  }
-
-  .map-level {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 14px 0;
-    position: relative;
-  }
-
-  .map-level::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .map-level:first-child::before { top: 50%; }
-  .map-level:last-child::before { bottom: 50%; }
-
-  .map-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--bg-hover);
-    border: 1px solid var(--border);
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    transition: all 0.6s ease;
-  }
-
-  .map-dot.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 16px rgba(201, 168, 124, 0.4);
-    width: 12px;
-    height: 12px;
-  }
-
-  .map-dot.below-active {
-    background: rgba(201, 168, 124, 0.3);
-    border-color: rgba(201, 168, 124, 0.4);
-  }
-
-  .map-level-name {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    transition: color 0.6s ease;
-  }
-
-  .map-level-name.active {
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .map-level-name.below-active {
-    color: var(--text-secondary);
-  }
-
-  /* Email capture */
-  .email-section {
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-    margin-top: 24px;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-    opacity: 0;
-    animation: revealEmail 0.8s ease 2.8s forwards;
-  }
-
-  @keyframes revealEmail {
-    to { opacity: 1; }
-  }
-
-  .email-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 12px;
-  }
-
-  .email-subtext {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 28px;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  .email-form {
-    display: flex;
-    gap: 12px;
-    width: 100%;
-  }
-
-  .email-input {
-    flex: 1;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 60px;
-    padding: 14px 24px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    outline: none;
-    transition: border-color var(--transition);
-  }
-
-  .email-input::placeholder { color: var(--text-muted); }
-  .email-input:focus { border-color: rgba(201, 168, 124, 0.4); }
-
-  .email-submit {
-    background: var(--accent);
-    border: none;
-    color: var(--bg-deep);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 14px 28px;
-    border-radius: 60px;
-    cursor: pointer;
-    transition: all var(--transition);
-    white-space: nowrap;
-  }
-
+  .option.fade-out { opacity: 0; transform: translateX(-20px); transition: all 0.3s ease; }
+  .result-screen { padding: 80px 0 120px; align-items: center; }
+  .result-emerge { text-align: center; margin-bottom: 48px; }
+  .result-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; font-weight: 500; }
+  .result-state-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 400; color: var(--accent); margin-bottom: 8px; opacity: 0; transform: translateY(12px); animation: revealName 1s ease 0.5s forwards; }
+  @keyframes revealName { to { opacity: 1; transform: translateY(0); } }
+  .result-divider { width: 60px; height: 1px; background: var(--accent); margin: 32px auto; opacity: 0; animation: revealLine 0.8s ease 0.8s forwards; }
+  @keyframes revealLine { to { opacity: 0.4; } }
+  .result-section { width: 100%; max-width: 600px; margin-bottom: 40px; opacity: 0; transform: translateY(16px); }
+  .result-section.reveal { animation: revealSection 0.8s ease forwards; }
+  @keyframes revealSection { to { opacity: 1; transform: translateY(0); } }
+  .result-section-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; font-weight: 500; }
+  .result-section-text { font-size: 1rem; line-height: 1.75; color: var(--text-secondary); font-weight: 300; }
+  .consciousness-map { width: 100%; max-width: 500px; margin: 32px auto 48px; opacity: 0; animation: revealMap 1s ease 1.8s forwards; }
+  @keyframes revealMap { to { opacity: 1; } }
+  .map-level { display: flex; align-items: center; gap: 16px; padding: 14px 0; position: relative; }
+  .map-level::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .map-level:first-child::before { top: 50%; } .map-level:last-child::before { bottom: 50%; }
+  .map-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-hover); border: 1px solid var(--border); flex-shrink: 0; position: relative; z-index: 1; transition: all 0.6s ease; }
+  .map-dot.active { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 16px rgba(201, 168, 124, 0.4); width: 12px; height: 12px; }
+  .map-dot.below-active { background: rgba(201, 168, 124, 0.3); border-color: rgba(201, 168, 124, 0.4); }
+  .map-level-name { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; transition: color 0.6s ease; }
+  .map-level-name.active { color: var(--accent); font-weight: 500; } .map-level-name.below-active { color: var(--text-secondary); }
+  .email-section { width: 100%; max-width: 500px; text-align: center; margin-top: 24px; padding-top: 40px; border-top: 1px solid var(--border); opacity: 0; animation: revealEmail 0.8s ease 2.8s forwards; }
+  @keyframes revealEmail { to { opacity: 1; } }
+  .email-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 12px; }
+  .email-subtext { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; font-weight: 300; }
+  .email-form { display: flex; gap: 12px; width: 100%; }
+  .email-input { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 60px; padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-primary); outline: none; transition: border-color var(--transition); }
+  .email-input::placeholder { color: var(--text-muted); } .email-input:focus { border-color: rgba(201, 168, 124, 0.4); }
+  .email-submit { background: var(--accent); border: none; color: var(--bg-deep); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 28px; border-radius: 60px; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
   .email-submit:hover { opacity: 0.85; transform: scale(1.02); }
-
-  .email-success {
-    display: none;
-    font-size: 0.9rem;
-    color: var(--accent);
-    padding: 16px;
-    font-weight: 400;
-  }
-
-  /* Ambient state shifts */
+  .email-success { display: none; font-size: 0.9rem; color: var(--accent); padding: 16px; font-weight: 400; }
   body.state-foundation .ambient-orb-1 { opacity: 0.04; background: radial-gradient(circle, #a08060, transparent 70%); }
   body.state-source .ambient-orb-1 { opacity: 0.03; background: radial-gradient(circle, #6070a0, transparent 70%); }
   body.state-witness .ambient-orb-1 { opacity: 0.05; background: radial-gradient(circle, #60a0a0, transparent 70%); }
   body.state-heart .ambient-orb-1 { opacity: 0.05; background: radial-gradient(circle, #a06080, transparent 70%); }
   body.state-integrated .ambient-orb-1 { opacity: 0.06; background: radial-gradient(circle, #c9a87c, transparent 70%); }
-
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 0.03; }
-    50% { transform: scale(1.1); opacity: 0.05; }
-  }
-
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.03; } 50% { transform: scale(1.1); opacity: 0.05; } }
   .ambient-orb { animation: breathe 8s ease-in-out infinite; }
-
-  @media (max-width: 600px) {
-    .container { padding: 0 20px; }
-    .email-form { flex-direction: column; }
-    .email-submit { width: 100%; padding: 16px; }
-    .option { padding: 16px 20px; font-size: 0.9rem; }
-  }
-
-  .home-link {
-    display: inline-block;
-    margin-top: 40px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    transition: color var(--transition);
-  }
-
+  @media (max-width: 600px) { .container { padding: 0 20px; } .email-form { flex-direction: column; } .email-submit { width: 100%; padding: 16px; } .option { padding: 16px 20px; font-size: 0.9rem; } }
+  .home-link { display: inline-block; margin-top: 40px; font-size: 0.8rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.05em; transition: color var(--transition); }
   .home-link:hover { color: var(--accent); }
-
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
+  body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
 </style>
 </head>
 <body>
-
-<div class="ambient">
-  <div class="ambient-orb ambient-orb-1"></div>
-  <div class="ambient-orb ambient-orb-2"></div>
-</div>
-
+<div class="ambient"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div></div>
 <div class="progress-bar" id="progressBar"></div>
-
 <div class="container">
-
-  <!-- INTRO -->
   <div class="screen intro active visible" id="screenIntro">
     <div class="intro-eyebrow">A Reflection</div>
     <h1>What state are you<br>operating from right now?</h1>
     <p>Four questions. Answer what's true right now — not what you want to be true. Your state will surface as you go.</p>
     <button class="btn-begin" onclick="startJourney()"><span>Begin</span></button>
   </div>
-
-  <!-- QUESTIONS -->
   <div class="screen question-screen" id="screenQuestion">
     <div class="question-counter" id="questionCounter"></div>
     <div class="question-stem" id="questionStem"></div>
     <div class="options" id="optionsContainer"></div>
   </div>
-
-  <!-- TRANSITION -->
-  <div class="screen transition-screen" id="screenTransition">
-    <div class="transition-text" id="transitionText"></div>
-  </div>
-
-  <!-- RESULT -->
   <div class="screen result-screen" id="screenResult">
     <div class="result-emerge">
       <div class="result-label">Your current state</div>
       <div class="result-state-name" id="resultName"></div>
     </div>
     <div class="result-divider"></div>
-
     <div class="result-section" id="recognitionSection">
       <div class="result-section-label">How you might recognize this in yourself</div>
       <div class="result-section-text" id="recognitionText"></div>
     </div>
-
     <div class="result-section" id="experienceSection">
       <div class="result-section-label">What you may be experiencing externally</div>
       <div class="result-section-text" id="experienceText"></div>
     </div>
-
     <div class="consciousness-map" id="consciousnessMap"></div>
-
     <div class="email-section">
       <div class="email-heading">See the full map</div>
       <div class="email-subtext">Get the complete 5-state Consciousness Map.</div>
@@ -605,285 +122,23 @@
       </form>
       <div class="email-success" id="emailSuccess">You're in. Check your inbox.</div>
     </div>
-
     <a href="https://thesunnysoul.net" class="home-link">thesunnysoul.net</a>
   </div>
-
 </div>
-
 <script>
-const questions = [
-  {
-    stem: "Right now, my mind is\u2026",
-    options: [
-      { text: "\u2026already somewhere else \u2014 on a problem, a worry, something I need to figure out or fix.", state: "foundation" },
-      { text: "\u2026quiet. There\u2019s no particular thing it\u2019s on. Just stillness.", state: "source" },
-      { text: "\u2026active, but I can see it being active. Like watching traffic from a window.", state: "witness" },
-      { text: "\u2026easy. Thoughts come and go without anything catching.", state: "heart" },
-      { text: "\u2026whatever it is. I\u2019m not trying to change it or manage it.", state: "integrated" }
-    ]
-  },
-  {
-    stem: "When I think about everything on my plate right now, I feel\u2026",
-    options: [
-      { text: "\u2026the weight of it. There\u2019s a lot, and some part of me is already bracing.", state: "foundation" },
-      { text: "\u2026nothing much. I\u2019m not really in contact with my plate right now.", state: "source" },
-      { text: "\u2026aware of the weight without being buried in it. I can see it all without becoming it.", state: "witness" },
-      { text: "\u2026okay. Things are moving and I trust they\u2019ll keep moving.", state: "heart" },
-      { text: "\u2026whatever comes up. Full or empty, it doesn\u2019t change something underneath.", state: "integrated" }
-    ]
-  },
-  {
-    stem: "The people closest to me right now feel\u2026",
-    options: [
-      { text: "\u2026like a lot. I\u2019m worried about them, responsible for them, or frustrated by them.", state: "foundation" },
-      { text: "\u2026far away. I\u2019m somewhere that doesn\u2019t have much room for anyone right now.", state: "source" },
-      { text: "\u2026present. I can see my patterns with them without being completely run by them.", state: "witness" },
-      { text: "\u2026easy to be with. I\u2019m not scanning for anything or bracing for anything.", state: "heart" },
-      { text: "\u2026part of life. They\u2019re there, but they\u2019re not determining how I feel inside.", state: "integrated" }
-    ]
-  },
-  {
-    stem: "When something doesn\u2019t go the way I wanted, I\u2026",
-    options: [
-      { text: "\u2026become the problem. It loops. I need a plan, an answer, or someone to blame \u2014 including myself.", state: "foundation" },
-      { text: "\u2026don\u2019t have strong feelings about it. I\u2019m not tracking outcomes that closely right now.", state: "source" },
-      { text: "\u2026notice the reaction without being identical to it. I can see myself responding without fully stopping it.", state: "witness" },
-      { text: "\u2026feel the disappointment without it turning into something larger.", state: "heart" },
-      { text: "\u2026feel it fully. And then it passes. Nothing reorganizes around it.", state: "integrated" }
-    ]
-  }
-];
-
-const states = {
-  foundation: {
-    name: "Foundation Consciousness",
-    recognition: "The outside world feels loud and convincing \u2014 like the only thing that\u2019s real. Emotions come swift and strong, often driving your actions. You\u2019re reacting, coping, chasing relief, or bracing for impact. You want things and you don\u2019t want things, and when you can\u2019t release what you don\u2019t want, you stay tied in loops of more action, more force, more determination.",
-    experience: "Life feels chaotic, unpredictable, like one crisis after another. Relationships feel draining or transactional. You attract situations that confirm your scarcity or urgency. Opportunities feel like they require massive effort just to stay afloat. Same patterns keep repeating \u2014 different people, same dynamic.",
-    order: 0
-  },
-  source: {
-    name: "Source Consciousness",
-    recognition: "The quiet underneath everything \u2014 like the moment just before you fall asleep, when thinking stops but you\u2019re still aware. You\u2019re not thinking about being present \u2014 you just are. Still, whole, enveloped. Not numb or dissociated. Just here.",
-    experience: "This isn\u2019t an active, outward state. You\u2019re drawn to deep rest \u2014 meditation, prayer, stillness. The external effects show up after repeated contact with Source, as it begins to saturate your physiology and affect how you move through the other states.",
-    order: 1
-  },
-  witness: {
-    name: "Witness Consciousness",
-    recognition: "You have a dual awareness \u2014 you\u2019re present to both Source consciousness and your outer world experience at the same time. Your inner world and outer world can exist simultaneously. This is still effortful, still new. You naturally default back without mindfully maintaining it.",
-    experience: "You start seeing patterns before they fully run. You exit situations earlier \u2014 not from panic, but from clarity. Things you\u2019ve wanted start showing up. People notice you\u2019re different but can\u2019t name what changed. Drama decreases because you\u2019re not feeding the loops. Solutions appear without grinding as hard. Synchronicities increase.",
-    order: 2
-  },
-  heart: {
-    name: "Heart Consciousness",
-    recognition: "The dual awareness that took effort to hold now feels natural. Less work to maintain, less work to return to when you slip. Life keeps showing you it\u2019s on your side \u2014 things you\u2019ve wanted keep appearing, not through force, but through alignment. Fun is back. Joy is available without having to manufacture it.",
-    experience: "Relationships deepen \u2014 people feel safe with you because you\u2019re safe with yourself. Conflict doesn\u2019t escalate the way it used to. You attract people who can actually meet you. Your presence shifts rooms. Less performing, more connecting. Creative insights arrive easily. Life feels less urgent even when circumstances haven\u2019t changed.",
-    order: 3
-  },
-  integrated: {
-    name: "Integrated Consciousness",
-    recognition: "Seamless awareness in all circumstances. You can experience contrasting experiences and not be thrown off your foundation. You know you\u2019ll default back sometimes, and you don\u2019t beat yourself up for it. Your interior and exterior experience doesn\u2019t change even when you drop back. You feel what you feel, but it doesn\u2019t create an internal earthquake.",
-    experience: "Life feels steady even when it\u2019s not perfect. You can hold complexity \u2014 success and struggle, joy and grief \u2014 without needing to resolve it. Your circumstances might not look different, but your relationship to them has fundamentally shifted. You stop needing external validation to know you\u2019re okay.",
-    order: 4
-  }
-};
-
-const transitions = [
-  "You didn\u2019t think about that.\nYou recognized it.",
-  "Stay honest.\nNot who you want to be.\nWho you are right now.",
-  "Last one.\nBe ruthless with yourself.",
-];
-
-let activeQuestions = [];
-let currentQuestion = 0;
-let answers = [];
-let isTransitioning = false;
-
-function pickQuestions() {
-  activeQuestions = [...questions];
-}
-
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active', 'visible');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      screen.classList.add('visible');
-    });
-  });
-}
-
-function updateProgress() {
-  const pct = ((currentQuestion) / activeQuestions.length) * 100;
-  document.getElementById('progressBar').style.width = pct + '%';
-}
-
-function startJourney() {
-  currentQuestion = 0;
-  answers = [];
-  pickQuestions();
-  showQuestion();
-}
-
-function shuffleArray(arr) {
-  const shuffled = [...arr];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
-function showQuestion() {
-  updateProgress();
-  const q = activeQuestions[currentQuestion];
-  document.getElementById('questionCounter').textContent =
-    `${currentQuestion + 1} of ${activeQuestions.length}`;
-  document.getElementById('questionStem').innerHTML = q.stem;
-
-  const container = document.getElementById('optionsContainer');
-  container.innerHTML = '';
-
-  const shuffled = shuffleArray(q.options);
-
-  shuffled.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'option';
-    btn.textContent = opt.text;
-    btn.onclick = () => selectOption(btn, opt.state);
-    container.appendChild(btn);
-  });
-
-  showScreen('screenQuestion');
-
-  const opts = container.querySelectorAll('.option');
-  opts.forEach((o, i) => {
-    o.style.opacity = '0';
-    o.style.transform = 'translateY(12px)';
-    setTimeout(() => {
-      o.style.transition = 'all 0.4s ease';
-      o.style.opacity = '1';
-      o.style.transform = 'translateY(0)';
-    }, 100 + i * 80);
-  });
-}
-
-function selectOption(btn, state) {
-  if (isTransitioning) return;
-  isTransitioning = true;
-
-  answers.push(state);
-
-  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-  btn.classList.add('selected');
-
-  setTimeout(() => {
-    document.querySelectorAll('.option').forEach(o => {
-      if (!o.classList.contains('selected')) {
-        o.classList.add('fade-out');
-      }
-    });
-  }, 300);
-
-  setTimeout(() => {
-    currentQuestion++;
-    if (currentQuestion < activeQuestions.length) {
-      // Show transition text between questions 1-2 and 2-3
-      if (currentQuestion < transitions.length) {
-        showTransition(transitions[currentQuestion - 1]);
-      } else {
-        showQuestion();
-        isTransitioning = false;
-      }
-    } else {
-      updateProgress();
-      showResult();
-    }
-  }, 800);
-}
-
-function showTransition(text) {
-  document.getElementById('transitionText').innerHTML = text.replace(/\n/g, '<br>');
-  showScreen('screenTransition');
-  setTimeout(() => {
-    showQuestion();
-    isTransitioning = false;
-  }, 2600);
-}
-
-function calculateState() {
-  const counts = {};
-  answers.forEach(a => {
-    counts[a] = (counts[a] || 0) + 1;
-  });
-
-  let maxState = 'foundation';
-  let maxCount = 0;
-  for (const [state, count] of Object.entries(counts)) {
-    if (count > maxCount) {
-      maxCount = count;
-      maxState = state;
-    }
-  }
-  return maxState;
-}
-
-function showResult() {
-  const stateKey = calculateState();
-  const state = states[stateKey];
-
-  document.body.className = `state-${stateKey}`;
-
-  document.getElementById('resultName').textContent = state.name;
-  document.getElementById('recognitionText').textContent = state.recognition;
-  document.getElementById('experienceText').textContent = state.experience;
-
-  const mapContainer = document.getElementById('consciousnessMap');
-  mapContainer.innerHTML = '';
-  const levels = ['integrated', 'heart', 'witness', 'source', 'foundation'];
-  levels.forEach(key => {
-    const level = document.createElement('div');
-    level.className = 'map-level';
-
-    const dot = document.createElement('div');
-    dot.className = 'map-dot';
-    if (key === stateKey) dot.classList.add('active');
-    if (states[key].order < states[stateKey].order) dot.classList.add('below-active');
-
-    const name = document.createElement('div');
-    name.className = 'map-level-name';
-    name.textContent = states[key].name.replace(' Consciousness', '');
-    if (key === stateKey) name.classList.add('active');
-    if (states[key].order < states[stateKey].order) name.classList.add('below-active');
-
-    level.appendChild(dot);
-    level.appendChild(name);
-    mapContainer.appendChild(level);
-  });
-
-  showScreen('screenResult');
-
-  setTimeout(() => {
-    document.getElementById('recognitionSection').classList.add('reveal');
-  }, 1200);
-  setTimeout(() => {
-    document.getElementById('experienceSection').classList.add('reveal');
-  }, 1800);
-
-  document.getElementById('progressBar').style.width = '100%';
-}
-
-function handleEmail(e) {
-  e.preventDefault();
-  const email = document.getElementById('emailInput').value;
-  window.open('https://sunnymlane.substack.com/subscribe?email=' + encodeURIComponent(email), '_blank');
-  document.getElementById('emailForm').style.display = 'none';
-  document.getElementById('emailSuccess').style.display = 'block';
-}
+const questions=[{stem:"Right now, my mind is\u2026",options:[{text:"\u2026already somewhere else \u2014 on a problem, a worry, something I need to figure out or fix.",state:"foundation"},{text:"\u2026quiet. There\u2019s no particular thing it\u2019s on. Just stillness.",state:"source"},{text:"\u2026active, but I can see it being active. Like watching traffic from a window.",state:"witness"},{text:"\u2026easy. Thoughts come and go without anything catching.",state:"heart"},{text:"\u2026whatever it is. I\u2019m not trying to change it or manage it.",state:"integrated"}]},{stem:"When I think about everything on my plate right now, I feel\u2026",options:[{text:"\u2026the weight of it. There\u2019s a lot, and some part of me is already bracing.",state:"foundation"},{text:"\u2026nothing much. I\u2019m not really in contact with my plate right now.",state:"source"},{text:"\u2026aware of the weight without being buried in it. I can see it all without becoming it.",state:"witness"},{text:"\u2026okay. Things are moving and I trust they\u2019ll keep moving.",state:"heart"},{text:"\u2026whatever comes up. Full or empty, it doesn\u2019t change something underneath.",state:"integrated"}]},{stem:"The people closest to me right now feel\u2026",options:[{text:"\u2026like a lot. I\u2019m worried about them, responsible for them, or frustrated by them.",state:"foundation"},{text:"\u2026far away. I\u2019m somewhere that doesn\u2019t have much room for anyone right now.",state:"source"},{text:"\u2026present. I can see my patterns with them without being completely run by them.",state:"witness"},{text:"\u2026easy to be with. I\u2019m not scanning for anything or bracing for anything.",state:"heart"},{text:"\u2026part of life. They\u2019re there, but they\u2019re not determining how I feel inside.",state:"integrated"}]},{stem:"When something doesn\u2019t go the way I wanted, I\u2026",options:[{text:"\u2026become the problem. It loops. I need a plan, an answer, or someone to blame \u2014 including myself.",state:"foundation"},{text:"\u2026don\u2019t have strong feelings about it. I\u2019m not tracking outcomes that closely right now.",state:"source"},{text:"\u2026notice the reaction without being identical to it. I can see myself responding without fully stopping it.",state:"witness"},{text:"\u2026feel the disappointment without it turning into something larger.",state:"heart"},{text:"\u2026feel it fully. And then it passes. Nothing reorganizes around it.",state:"integrated"}]}];
+const states={foundation:{name:"Foundation Consciousness",recognition:"The outside world feels loud and convincing \u2014 like the only thing that\u2019s real. Emotions come swift and strong, often driving your actions. You\u2019re reacting, coping, chasing relief, or bracing for impact. You want things and you don\u2019t want things, and when you can\u2019t release what you don\u2019t want, you stay tied in loops of more action, more force, more determination.",experience:"Life feels chaotic, unpredictable, like one crisis after another. Relationships feel draining or transactional. You attract situations that confirm your scarcity or urgency. Opportunities feel like they require massive effort just to stay afloat. Same patterns keep repeating \u2014 different people, same dynamic.",order:0},source:{name:"Source Consciousness",recognition:"The quiet underneath everything \u2014 like the moment just before you fall asleep, when thinking stops but you\u2019re still aware. You\u2019re not thinking about being present \u2014 you just are. Still, whole, enveloped. Not numb or dissociated. Just here.",experience:"This isn\u2019t an active, outward state. You\u2019re drawn to deep rest \u2014 meditation, prayer, stillness. The external effects show up after repeated contact with Source, as it begins to saturate your physiology and affect how you move through the other states.",order:1},witness:{name:"Witness Consciousness",recognition:"You have a dual awareness \u2014 you\u2019re present to both Source consciousness and your outer world experience at the same time. Your inner world and outer world can exist simultaneously. This is still effortful, still new. You naturally default back without mindfully maintaining it.",experience:"You start seeing patterns before they fully run. You exit situations earlier \u2014 not from panic, but from clarity. Things you\u2019ve wanted start showing up. People notice you\u2019re different but can\u2019t name what changed. Drama decreases because you\u2019re not feeding the loops. Solutions appear without grinding as hard. Synchronicities increase.",order:2},heart:{name:"Heart Consciousness",recognition:"The dual awareness that took effort to hold now feels natural. Less work to maintain, less work to return to when you slip. Life keeps showing you it\u2019s on your side \u2014 things you\u2019ve wanted keep appearing, not through force, but through alignment. Fun is back. Joy is available without having to manufacture it.",experience:"Relationships deepen \u2014 people feel safe with you because you\u2019re safe with yourself. Conflict doesn\u2019t escalate the way it used to. You attract people who can actually meet you. Your presence shifts rooms. Less performing, more connecting. Creative insights arrive easily. Life feels less urgent even when circumstances haven\u2019t changed.",order:3},integrated:{name:"Integrated Consciousness",recognition:"Seamless awareness in all circumstances. You can experience contrasting experiences and not be thrown off your foundation. You know you\u2019ll default back sometimes, and you don\u2019t beat yourself up for it. Your interior and exterior experience doesn\u2019t change even when you drop back. You feel what you feel, but it doesn\u2019t create an internal earthquake.",experience:"Life feels steady even when it\u2019s not perfect. You can hold complexity \u2014 success and struggle, joy and grief \u2014 without needing to resolve it. Your circumstances might not look different, but your relationship to them has fundamentally shifted. You stop needing external validation to know you\u2019re okay.",order:4}};
+const weights={foundation:{foundation:3,witness:1},source:{source:3},witness:{witness:3,foundation:1,heart:1},heart:{heart:3,witness:1,integrated:1},integrated:{integrated:3,heart:1}};
+let currentQuestion=0,answers=[],isTransitioning=false;
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','visible'));const screen=document.getElementById(id);screen.classList.add('active');requestAnimationFrame(()=>requestAnimationFrame(()=>screen.classList.add('visible')));}
+function updateProgress(){document.getElementById('progressBar').style.width=(currentQuestion/questions.length*100)+'%';}
+function startJourney(){currentQuestion=0;answers=[];showQuestion();}
+function shuffleArray(arr){const s=[...arr];for(let i=s.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[s[i],s[j]]=[s[j],s[i]];}return s;}
+function showQuestion(){updateProgress();const q=questions[currentQuestion];document.getElementById('questionCounter').textContent=(currentQuestion+1)+' of '+questions.length;document.getElementById('questionStem').innerHTML=q.stem;const container=document.getElementById('optionsContainer');container.innerHTML='';shuffleArray(q.options).forEach((opt,i)=>{const btn=document.createElement('button');btn.className='option';btn.textContent=opt.text;btn.onclick=()=>selectOption(btn,opt.state);container.appendChild(btn);});showScreen('screenQuestion');container.querySelectorAll('.option').forEach((o,i)=>{o.style.opacity='0';o.style.transform='translateY(12px)';setTimeout(()=>{o.style.transition='all 0.4s ease';o.style.opacity='1';o.style.transform='translateY(0)';},100+i*80);});}
+function selectOption(btn,state){if(isTransitioning)return;isTransitioning=true;answers.push(state);document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));btn.classList.add('selected');setTimeout(()=>document.querySelectorAll('.option').forEach(o=>{if(!o.classList.contains('selected'))o.classList.add('fade-out');}),300);setTimeout(()=>{currentQuestion++;if(currentQuestion<questions.length){showQuestion();isTransitioning=false;}else{updateProgress();showResult();}},800);}
+function calculateState(){const scores={foundation:0,source:0,witness:0,heart:0,integrated:0};answers.forEach(answer=>{const w=weights[answer];for(const[state,pts]of Object.entries(w)){scores[state]+=pts;}});const sourcePicks=answers.filter(a=>a==='source').length;const foundationPicks=answers.filter(a=>a==='foundation').length;if(sourcePicks<2||foundationPicks>1){scores.source=0;}let maxState='foundation',maxScore=0;for(const[state,score]of Object.entries(scores)){if(score>maxScore){maxScore=score;maxState=state;}}return maxState;}
+function showResult(){const stateKey=calculateState();const state=states[stateKey];document.body.className='state-'+stateKey;document.getElementById('resultName').textContent=state.name;document.getElementById('recognitionText').textContent=state.recognition;document.getElementById('experienceText').textContent=state.experience;const mapContainer=document.getElementById('consciousnessMap');mapContainer.innerHTML='';['integrated','heart','witness','source','foundation'].forEach(key=>{const level=document.createElement('div');level.className='map-level';const dot=document.createElement('div');dot.className='map-dot';if(key===stateKey)dot.classList.add('active');if(states[key].order<states[stateKey].order)dot.classList.add('below-active');const name=document.createElement('div');name.className='map-level-name';name.textContent=states[key].name.replace(' Consciousness','');if(key===stateKey)name.classList.add('active');if(states[key].order<states[stateKey].order)name.classList.add('below-active');level.appendChild(dot);level.appendChild(name);mapContainer.appendChild(level);});showScreen('screenResult');setTimeout(()=>document.getElementById('recognitionSection').classList.add('reveal'),1200);setTimeout(()=>document.getElementById('experienceSection').classList.add('reveal'),1800);document.getElementById('progressBar').style.width='100%';}
+function handleEmail(e){e.preventDefault();const email=document.getElementById('emailInput').value;window.open('https://sunnymlane.substack.com/subscribe?email='+encodeURIComponent(email),'_blank');document.getElementById('emailForm').style.display='none';document.getElementById('emailSuccess').style.display='block';}
 </script>
-
 </body>
 </html>
