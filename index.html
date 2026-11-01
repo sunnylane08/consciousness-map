@@ -70,6 +70,7 @@
   .email-submit { background: var(--accent); border: none; color: var(--bg-deep); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 28px; border-radius: 60px; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
   .email-submit:hover { opacity: 0.85; transform: scale(1.02); }
   .email-success { display: none; font-size: 0.9rem; color: var(--accent); padding: 16px; font-weight: 400; }
+  .substack-embed { width: 100%; max-width: 480px; height: 320px; border: 1px solid var(--border); border-radius: 12px; background: #fff; display: block; margin: 0 auto; }
   body.state-foundation .ambient-orb-1 { opacity: 0.04; background: radial-gradient(circle, #a08060, transparent 70%); }
   body.state-source .ambient-orb-1 { opacity: 0.03; background: radial-gradient(circle, #6070a0, transparent 70%); }
   body.state-witness .ambient-orb-1 { opacity: 0.05; background: radial-gradient(circle, #60a0a0, transparent 70%); }
@@ -114,13 +115,9 @@
     </div>
     <div class="consciousness-map" id="consciousnessMap"></div>
     <div class="email-section">
-      <div class="email-heading">See the full map</div>
-      <div class="email-subtext">Get the complete 5-state Consciousness Map.</div>
-      <form class="email-form" id="emailForm" onsubmit="handleEmail(event)">
-        <input type="email" class="email-input" placeholder="your@email.com" required id="emailInput">
-        <button type="submit" class="email-submit">Send it</button>
-      </form>
-      <div class="email-success" id="emailSuccess">You're in. Check your inbox.</div>
+      <div class="email-heading">Keep going</div>
+      <div class="email-subtext">New writing on the five states in everyday life, sent by email. Free, and you can unsubscribe anytime.</div>
+      <iframe class="substack-embed" src="https://sunnymlane.substack.com/embed" title="Subscribe by email" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
     </div>
     <a href="https://thesunnysoul.net" class="home-link">thesunnysoul.net</a>
   </div>
@@ -138,7 +135,6 @@ function showQuestion(){updateProgress();const q=questions[currentQuestion];docu
 function selectOption(btn,state){if(isTransitioning)return;isTransitioning=true;answers.push(state);document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));btn.classList.add('selected');setTimeout(()=>document.querySelectorAll('.option').forEach(o=>{if(!o.classList.contains('selected'))o.classList.add('fade-out');}),300);setTimeout(()=>{currentQuestion++;if(currentQuestion<questions.length){showQuestion();isTransitioning=false;}else{updateProgress();showResult();}},800);}
 function calculateState(){const scores={foundation:0,source:0,witness:0,heart:0,integrated:0};answers.forEach(answer=>{const w=weights[answer];for(const[state,pts]of Object.entries(w)){scores[state]+=pts;}});const sourcePicks=answers.filter(a=>a==='source').length;const foundationPicks=answers.filter(a=>a==='foundation').length;if(sourcePicks<2||foundationPicks>1){scores.source=0;}let maxState='foundation',maxScore=0;for(const[state,score]of Object.entries(scores)){if(score>maxScore){maxScore=score;maxState=state;}}return maxState;}
 function showResult(){const stateKey=calculateState();const state=states[stateKey];document.body.className='state-'+stateKey;document.getElementById('resultName').textContent=state.name;document.getElementById('recognitionText').textContent=state.recognition;document.getElementById('experienceText').textContent=state.experience;const mapContainer=document.getElementById('consciousnessMap');mapContainer.innerHTML='';['integrated','heart','witness','source','foundation'].forEach(key=>{const level=document.createElement('div');level.className='map-level';const dot=document.createElement('div');dot.className='map-dot';if(key===stateKey)dot.classList.add('active');if(states[key].order<states[stateKey].order)dot.classList.add('below-active');const name=document.createElement('div');name.className='map-level-name';name.textContent=states[key].name.replace(' Consciousness','');if(key===stateKey)name.classList.add('active');if(states[key].order<states[stateKey].order)name.classList.add('below-active');level.appendChild(dot);level.appendChild(name);mapContainer.appendChild(level);});showScreen('screenResult');setTimeout(()=>document.getElementById('recognitionSection').classList.add('reveal'),1200);setTimeout(()=>document.getElementById('experienceSection').classList.add('reveal'),1800);document.getElementById('progressBar').style.width='100%';}
-function handleEmail(e){e.preventDefault();const email=document.getElementById('emailInput').value;window.open('https://sunnymlane.substack.com/subscribe?email='+encodeURIComponent(email),'_blank');document.getElementById('emailForm').style.display='none';document.getElementById('emailSuccess').style.display='block';}
 </script>
 </body>
 </html>
