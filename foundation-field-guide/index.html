@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foundation: Field Guide | Sunny M Lane</title>
+<meta name="description" content="A one-page field guide to Foundation, one of five states of consciousness: how it shows up in the body, what it gets mistaken for, and the move available from there.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg-deep: #2C3E50; --bg-card: #35495e; --text-primary: #F9F6F1; --text-body: rgba(249, 246, 241, 0.82); --text-muted: rgba(249, 246, 241, 0.5); --accent: #c9a87c; --rule: rgba(201, 168, 124, 0.22); }
+  html { font-size: 16px; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .ambient-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.05; }
+  .ambient-orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, #c9a87c, transparent 70%); top: -200px; right: -100px; }
+  .ambient-orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #7c8ec9, transparent 70%); bottom: -150px; left: -100px; }
+  .page { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 88px 24px 96px; }
+  header { text-align: center; margin-bottom: 56px; }
+  .eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 24px; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 8vw, 4.2rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+  .tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.25rem, 3.4vw, 1.55rem); color: var(--text-body); margin-top: 16px; }
+  .divider { width: 60px; height: 1px; background: var(--accent); margin: 32px auto 0; }
+  dl { border-top: 1px solid var(--rule); }
+  .row { display: grid; grid-template-columns: 190px 1fr; column-gap: 32px; padding: 22px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  dt { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; line-height: 1.6; }
+  dd { font-size: 1rem; line-height: 1.7; color: var(--text-body); font-weight: 300; }
+  dd.voice { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; line-height: 1.4; color: var(--text-primary); font-weight: 400; }
+  .row.key { background: rgba(201, 168, 124, 0.07); margin: 0 -20px; padding: 26px 20px; border-radius: 12px; border-bottom-color: transparent; }
+  .row.key + .row { border-top: 1px solid var(--rule); margin-top: -1px; }
+  footer { margin-top: 64px; text-align: center; }
+  .btn { display: inline-block; border: 1px solid var(--accent); color: var(--accent); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 15px 40px; border-radius: 60px; transition: background 0.3s ease, color 0.3s ease; }
+  .btn:hover, .btn:focus-visible { background: var(--accent); color: var(--bg-deep); }
+  .home-link { display: block; margin-top: 32px; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; }
+  .home-link:hover, .home-link:focus-visible { color: var(--accent); }
+  @media (max-width: 600px) {
+    .page { padding: 64px 22px 72px; }
+    .row { grid-template-columns: 1fr; row-gap: 8px; padding: 20px 0; }
+    .row.key { margin: 0 -12px; padding: 22px 12px; }
+  }
+  @media print {
+    body { background: #fff; color: #1f2a36; }
+    .ambient, footer { display: none; }
+    .page { padding: 24px 0; max-width: none; }
+    header { margin-bottom: 28px; }
+    h1 { font-size: 34pt; }
+    .tagline, dd { color: #2b3440; }
+    dd.voice { color: #1f2a36; font-size: 14pt; }
+    dt, .eyebrow { color: #8a6a3c; }
+    dl, .row { border-color: #d9cdb8; }
+    .row { padding: 9px 0; break-inside: avoid; }
+    .row.key { background: none; margin: 0; padding: 9px 0; border-bottom-color: #d9cdb8; }
+    dd { font-size: 10.5pt; line-height: 1.5; }
+  }
+</style>
+</head>
+<body>
+<div class="ambient"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div></div>
+<main class="page">
+  <header>
+    <div class="eyebrow">Field Guide</div>
+    <h1>Foundation</h1>
+    <p class="tagline">Awareness absorbed in experience.</p>
+    <div class="divider"></div>
+  </header>
+  <dl>
+    <div class="row"><dt>Primary driver</dt><dd>Stabilization.</dd></div>
+    <div class="row"><dt>Core experience</dt><dd class="voice">&ldquo;How do I make this okay?&rdquo;</dd></div>
+    <div class="row"><dt>You&rsquo;re here if</dt><dd>You feel responsible for managing outcomes. You believe effort will equal safety. You improve and don&rsquo;t feel any safer. You over-function, caretake, explain yourself, and look for reassurance.</dd></div>
+    <div class="row"><dt>Body signals</dt><dd>Contracted and vigilant. Breath shallow, high in the chest.</dd></div>
+    <div class="row"><dt>Thought patterns</dt><dd>Urgent and repetitive. Scanning for what might go wrong. Planning harder under stress.</dd></div>
+    <div class="row"><dt>Emotional quality</dt><dd>Immersive. Sometimes urgent. Sometimes busy, fun, even joyful.</dd></div>
+    <div class="row"><dt>Emotions as guidance</dt><dd>Feelings read as identity. &ldquo;I feel fear&rdquo; turns into &ldquo;I am failing.&rdquo;</dd></div>
+    <div class="row key"><dt>Not to be confused with</dt><dd>The only reality. From inside, this room feels like the whole house. It is one room of it.</dd></div>
+    <div class="row"><dt>Where you may have touched it</dt><dd>The rush of an ordinary day: prepare, respond, manage, repeat.</dd></div>
+    <div class="row"><dt>What tends to emerge</dt><dd>Urgent decisions. Relationships organized around relief. Patterns that repeat in different forms.</dd></div>
+    <div class="row"><dt>The illusion</dt><dd class="voice">&ldquo;If I fix enough, I&rsquo;ll finally relax.&rdquo;</dd></div>
+    <div class="row"><dt>The ceiling</dt><dd>You can improve skills here. Relief is fleeting.</dd></div>
+    <div class="row"><dt>What becomes possible</dt><dd>Noticing where you are standing, and staying with the experience before trying to fix it.</dd></div>
+    <div class="row key"><dt>The move</dt><dd>Turn toward what is happening in you and ask, &ldquo;How can I be with you here?&rdquo;</dd></div>
+  </dl>
+  <footer>
+    <a class="btn" href="../">Take the assessment</a>
+    <a class="home-link" href="https://www.sunnymlane.com">sunnymlane.com</a>
+  </footer>
+</main>
+</body>
+</html>
