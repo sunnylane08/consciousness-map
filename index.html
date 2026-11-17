@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root { --bg-deep: #2C3E50; --bg-card: #35495e; --bg-hover: #3d5470; --text-primary: #F9F6F1; --text-secondary: #9a9590; --text-muted: #5a5550; --accent: #c9a87c; --accent-soft: rgba(201, 168, 124, 0.12); --border: rgba(255, 255, 255, 0.06); --radius: 12px; --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  :root { --bg-deep: #2C3E50; --bg-card: #35495e; --bg-hover: #3d5470; --text-primary: #F9F6F1; --text-secondary: rgba(249, 246, 241, 0.82); --text-muted: rgba(249, 246, 241, 0.55); --accent: #c9a87c; --accent-soft: rgba(201, 168, 124, 0.12); --border: rgba(255, 255, 255, 0.06); --radius: 12px; --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
   html { font-size: 16px; scroll-behavior: smooth; }
   body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
   .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -63,7 +63,7 @@
   .email-section { width: 100%; max-width: 500px; text-align: center; margin-top: 24px; padding-top: 40px; border-top: 1px solid var(--border); opacity: 0; animation: revealEmail 0.8s ease 2.8s forwards; }
   @keyframes revealEmail { to { opacity: 1; } }
   .email-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 12px; }
-  .email-subtext { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; font-weight: 300; }
+  .email-subtext { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.6; font-weight: 300; }
   .email-form { display: flex; gap: 12px; width: 100%; }
   .email-input { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 60px; padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-primary); outline: none; transition: border-color var(--transition); }
   .email-input::placeholder { color: var(--text-muted); } .email-input:focus { border-color: rgba(201,168,124,0.4); }
