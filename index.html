@@ -129,7 +129,7 @@ const weights={foundation:{foundation:3,witness:1},source:{source:3},witness:{wi
 let currentQuestion=0,answers=[],isTransitioning=false;
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','visible'));const screen=document.getElementById(id);screen.classList.add('active');requestAnimationFrame(()=>requestAnimationFrame(()=>screen.classList.add('visible')));}
 function updateProgress(){document.getElementById('progressBar').style.width=(currentQuestion/questions.length*100)+'%';}
-const GC_CODE='';/* GoatCounter site code; counting stays off while this is empty */
+const GC_CODE='sunnymlane';/* GoatCounter site code */
 if(GC_CODE){const gc=document.createElement('script');gc.async=true;gc.src='https://gc.zgo.at/count.js';gc.dataset.goatcounter='https://'+GC_CODE+'.goatcounter.com/count';document.head.appendChild(gc);}
 function track(name){if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:name,title:name,event:true});}}
 function startJourney(){currentQuestion=0;answers=[];track('assessment-start');showQuestion();}
